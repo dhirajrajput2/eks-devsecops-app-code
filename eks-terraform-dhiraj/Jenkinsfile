@@ -1,91 +1,88 @@
 properties([
-parameters([
-string(
-defaultValue: 'dev',
-name: 'Environment'
-),
-choice(
-choices: ['plan', 'apply', 'destroy'],
-name: 'Terraform_Action'
-)
-])
+    parameters([
+        string(
+            defaultValue: 'dev',
+            name: 'Environment'
+        ),
+        choice(
+            choices: ['plan', 'apply', 'destroy'],
+            name: 'Terraform_Action'
+        )
+    ])
 ])
 
 pipeline {
-agent any
+    agent any
 
-```
-stages {
+    stages {
 
-    stage('Preparing') {
-        steps {
-            sh 'echo Preparing Terraform Pipeline'
-            sh 'terraform version'
+        stage('Preparing') {
+            steps {
+                sh 'echo Preparing Terraform Pipeline'
+                sh 'terraform version'
+            }
         }
-    }
 
-    stage('Git Pulling') {
-        steps {
-            git branch: 'main', url: 'https://github.com/dhirajrajput2/eks-devsecops-app-code.git'
+        stage('Git Pulling') {
+            steps {
+                git branch: 'main', url: 'https://github.com/dhirajrajput2/eks-devsecops-app-code.git'
+            }
         }
-    }
 
-    stage('Check S3 Backend') {
-        steps {
-            withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
-                sh '''
-                    aws s3 ls s3://dhiraj-s3-1 || {
-                        echo "S3 bucket not found! Create it before running."
-                        exit 1
+        stage('Check S3 Backend') {
+            steps {
+                withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
+                    sh '''
+                        aws s3 ls s3://dhiraj-s3-1 || {
+                            echo "S3 bucket not found! Create it before running."
+                            exit 1
+                        }
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
+                    dir('eks-terraform-dhiraj/eks') {
+                        sh 'terraform init -reconfigure'
                     }
-                '''
-            }
-        }
-    }
-
-    stage('Terraform Init') {
-        steps {
-            withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
-                dir('eks-terraform-dhiraj/eks') {
-                    sh 'terraform init'
                 }
             }
         }
-    }
 
-    stage('Terraform Validate') {
-        steps {
-            withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
-                dir('eks-terraform-dhiraj/eks') {
-                    sh 'terraform validate'
+        stage('Terraform Validate') {
+            steps {
+                withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
+                    dir('eks-terraform-dhiraj/eks') {
+                        sh 'terraform validate'
+                    }
                 }
             }
         }
-    }
 
-    stage('Terraform Action') {
-        steps {
-            withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
-                dir('eks-terraform-dhiraj/eks') {
-                    script {
-                        if (params.Terraform_Action == 'plan') {
-                            sh "terraform plan -var-file=${params.Environment}.tfvars"
-                        } 
-                        else if (params.Terraform_Action == 'apply') {
-                            sh "terraform apply -var-file=${params.Environment}.tfvars -auto-approve"
-                        } 
-                        else if (params.Terraform_Action == 'destroy') {
-                            sh "terraform destroy -var-file=${params.Environment}.tfvars -auto-approve"
-                        } 
-                        else {
-                            error "Invalid Terraform_Action value"
+        stage('Terraform Action') {
+            steps {
+                withAWS(credentials: 'aws-creds', region: 'ap-south-1') {
+                    dir('eks-terraform-dhiraj/eks') {
+                        script {
+                            if (params.Terraform_Action == 'plan') {
+                                sh "terraform plan -var-file=${params.Environment}.tfvars"
+                            } 
+                            else if (params.Terraform_Action == 'apply') {
+                                sh "terraform apply -var-file=${params.Environment}.tfvars -auto-approve"
+                            } 
+                            else if (params.Terraform_Action == 'destroy') {
+                                sh "terraform destroy -var-file=${params.Environment}.tfvars -auto-approve"
+                            } 
+                            else {
+                                error "Invalid Terraform_Action value"
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-```
-
 }
