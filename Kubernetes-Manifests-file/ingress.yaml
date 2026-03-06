@@ -12,7 +12,7 @@ spec:
   ingressClassName: alb
   rules:
     # - host: your-domain.com   # TODO: Replace with your actual domain
-      http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
