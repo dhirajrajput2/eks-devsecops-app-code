@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: your-domain.com   # TODO: Replace with your actual domain
+    # - host: your-domain.com   # TODO: Replace with your actual domain
       http:
         paths:
           - path: /api
