@@ -1,7 +1,7 @@
 # Three-Tier Web Application Deployment on AWS EKS using AWS EKS, ArgoCD, Prometheus, Grafana, and Jenkins
 
-[![LinkedIn](https://img.shields.io/badge/Connect%20with%20me%20on-LinkedIn-blue.svg)](https://www.linkedin.com/in/ritej)
-[![GitHub](https://img.shields.io/github/stars/AmanPathak-DevOps.svg?style=social)](https://github.com/ritejmule2126)
+[![LinkedIn](https://img.shields.io/badge/Connect%20with%20me%20on-LinkedIn-blue.svg)](https://www.linkedin.com/in/rajput-dhiraj/)
+[![GitHub](https://img.shields.io/github/stars/AmanPathak-DevOps.svg?style=social)](https://github.com/dhirajrajput2)
 [![AWS](https://img.shields.io/badge/AWS-%F0%9F%9B%A1-orange)](https://aws.amazon.com)
 [![Terraform](https://img.shields.io/badge/Terraform-%E2%9C%A8-lightgrey)](https://www.terraform.io)
 
@@ -58,48 +58,38 @@ The Kubernetes-Manifests-Files directory holds Kubernetes manifests for deployin
 ### AWS EC2 Infrastructure
 The project utilizes multiple EC2 instances for different purposes:
 
-#### Jump Server (Bastion Host)
-A secure entry point to access the private infrastructure within the VPC.
-![Jump Server EC2 Instance](screenshots/jump-server.png)
-*Jump Server configuration running t3.medium instance*
-
-#### Jenkins Server
-Dedicated server for CI/CD pipeline execution with comprehensive build and deployment capabilities.
-![Jenkins Server EC2 Instance](screenshots/jenkins-server.png)
-*Jenkins Server running on t2.2xlarge instance*
-
 ## CI/CD Pipeline
 
 #### Jenkins Dashboard
 Automated build and deployment pipelines for backend, frontend, and infrastructure components.
-![Jenkins Dashboard](screenshots/jenkins-dashboard.png)
+![Jenkins Dashboard](screenshots/Terraform-infra-pipeline.png)
 *Three pipelines configured: Capstone-Infrastructure, Three-tier-backend, and Three-tier-frontend with successful builds*
 
 #### SonarQube Code Quality
 Static code analysis ensuring code quality and security standards.
-![SonarQube Dashboard](screenshots/sonarqube-dashboard.png)
+![SonarQube Dashboard](screenshots/Sonarqube-Dashboard.png)
 *Quality gates passed for both backend and frontend applications with 0 bugs and vulnerabilities*
 
-## GitOps with ArgoCD
+## Git ops
 
 #### ArgoCD Application Dashboard
 All three tiers managed through GitOps practices for declarative deployments.
-![ArgoCD Dashboard](screenshots/argocd-dashboard.png)
+![ArgoCD Dashboard](screenshots/ArgoCD-Applications-List.png)
 *All applications (backend, database, frontend) in Healthy and Synced status*
 
 #### Backend Architecture in ArgoCD
 Detailed view of backend deployment with pods, services, and replica sets.
-![Backend Architecture](screenshots/backend-architecture-argocd.png)
+![Backend Architecture](screenshots/ArgoCD-Backend.png)
 *Backend deployment showing pods, services, and endpoint slices in running state*
 
 #### Database Architecture in ArgoCD
 MongoDB deployment configuration with persistent storage.
-![Database Architecture](screenshots/database-architecture-argocd.png)
+![Database Architecture](screenshots/AgroCD-Database.png)
 *Database deployment with persistent volumes configuration*
 
 #### Ingress Configuration
 Load balancer and ingress rules for routing external traffic.
-![Ingress Architecture](screenshots/ingress-architecture-argocd.png)
+![Ingress Architecture](screenshots/ArgoCD-Ingress.png)
 *Ingress controller configuration for routing traffic to appropriate services*
 
 ## Monitoring & Observability
@@ -120,14 +110,12 @@ All screenshots are organized in the `screenshots/` directory:
 
 | Component | Description | File |
 |-----------|-------------|------|
-| Jump Server | Bastion host EC2 configuration | `jump-server.png` |
-| Jenkins Server | CI/CD server details | `jenkins-server.png` |
-| Jenkins Dashboard | Pipeline overview | `jenkins-dashboard.png` |
-| SonarQube | Code quality dashboard | `sonarqube-dashboard.png` |
-| ArgoCD | Main application dashboard | `argocd-dashboard.png` |
-| Backend ArgoCD | Backend deployment details | `backend-architecture-argocd.png` |
-| Database ArgoCD | Database deployment | `database-architecture-argocd.png` |
-| Ingress ArgoCD | Ingress configuration | `ingress-architecture-argocd.png` |
+| Jenkins Dashboard | Pipeline overview | `Terraform-infra-pipeline.png` |
+| SonarQube | Code quality dashboard | `Sonarqube-Dashboard.png` |
+| ArgoCD | Main application dashboard | `ArgoCD-Applications-List.png` |
+| Backend ArgoCD | Backend deployment detailsg | `ArgoCD-Backend.png` |
+| Database ArgoCD | Database deployment | `AgroCD-Database.png` |
+| Ingress ArgoCD | Ingress configuration | ` ArgoCD-Ingress.png` |
 | Grafana | Monitoring dashboard | `grafana-dashboard.png` |
 
 ## Architecture Overview
@@ -154,8 +142,8 @@ All screenshots are organized in the `screenshots/` directory:
 
 1. **Clone the repository**
 ```bash
-   git clone https://github.com/ritejmule2126/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git
-   cd End-to-End-Kubernetes-Three-Tier-DevSecOps-Project
+   git clone https://github.com/dhirajrajput2/eks-devsecops-app-code.git
+   cd  eks-devsecops-app-code.git
 ```
 
 2. **Infrastructure Setup**
