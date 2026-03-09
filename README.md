@@ -89,7 +89,7 @@ MongoDB deployment configuration with persistent storage.
 
 #### Ingress Configuration
 Load balancer and ingress rules for routing external traffic.
-![Ingress Architecture](screenshots/ArgoCD-Ingress.png)
+![Ingress Architecture](screenshots/Argo-CD-Ingress.png)
 *Ingress controller configuration for routing traffic to appropriate services*
 
 ## Monitoring & Observability
